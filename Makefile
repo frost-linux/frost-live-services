@@ -1,6 +1,6 @@
 VERSION = 0.8
 
-PKG = live-services
+PKG = frost-live-services
 TOOLS = frostools
 
 SYSCONFDIR = /etc
