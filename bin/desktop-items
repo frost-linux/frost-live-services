@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Ensure the user directories are created, some DEs (MATE)
+# create them after autostart scripts are run
+xdg-user-dirs-update --force
+
+xdg=$(xdg-user-dir DESKTOP)
+src=/usr/share/applications
+
+# if [[ -f $src/org.kde.konversation.desktop ]]; then
+#     install -m644 $src/org.kde.konversation.desktop \
+#     $xdg/org.kde.konversation.desktop
+# fi
+
+# if [[ -f /usr/bin/calamares ]]; then
+#     cp $src/calamares.desktop \
+#     $xdg/calamares.desktop
+# fi
+
+docs=/usr/share/doc/artix
+
+for f in {Configuration,Troubleshooting}.pdf;do
+    ln -s $docs/$f $xdg/$f
+done
+
+if [[ -d /run/openrc ]];then
+    ln -s $docs/OpenRC.pdf $xdg/OpenRC.pdf
+elif [[ -d /run/runit ]];then
+    ln -s $docs/Runit.pdf $xdg/Runit.pdf
+else
+    ln -s $docs/S6.pdf $xdg/S6.pdf
+fi
+
+echo "live session details: /var/log/frost-live.log" > $xdg/README.txt
